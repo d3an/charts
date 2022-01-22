@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ibgateway-live.fullname" . }}
+  labels:
+    {{- include "ibgateway-live.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: {{ .Values.service.port | quote }}
+      port: 5900
+      targetPort: 5900
+  selector:
+    {{- include "ibgateway-live.selectorLabels" . | nindent 4 }}

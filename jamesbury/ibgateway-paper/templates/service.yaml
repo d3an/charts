@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ibgateway-paper.fullname" . }}
+  labels:
+    {{- include "ibgateway-paper.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: {{ .Values.service.port | quote }}
+      port: 5901
+      targetPort: 5900
+  selector:
+    {{- include "ibgateway-paper.selectorLabels" . | nindent 4 }}
